@@ -9,7 +9,6 @@ $features = [
     ["title" => "Direct PHP Execution", "desc" => "Berjalan langsung di atas Linux Container Azure App Service."],
     ["title" => "Zero Database Needed", "desc" => "Cocok untuk landing page, dokumentasi, atau portal statis cepat."],
     ["title" => "Git Continuous Deployment", "desc" => "Otomatis ter-deploy saat Anda melakukan push ke branch utama."]
-    ["title" => "Git Continuous Deployment", "desc" => "Otomatis ter-deploy saat Anda melakukan push ke branch utama."]
 ];
 ?>
 <!DOCTYPE html>
