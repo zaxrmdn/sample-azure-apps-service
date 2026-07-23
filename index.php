@@ -2,13 +2,13 @@
 // Konfigurasi & Variabel Aplikasi Statis
 $app_name = "Azure App Service - PHP Static Lab";
 $version  = "1.0.0";
-$server_time = date('D, d M Y H:i:s T');
+$server_time = (TZ='Africa/Douala') date;
 $php_ver = phpversion();
 
 $features = [
-    ["title" => "Direct PHP Execution", "desc" => "Berjalan langsung di atas Linux Container Azure App Service."],
-    ["title" => "Zero Database Needed", "desc" => "Cocok untuk landing page, dokumentasi, atau portal statis cepat."],
-    ["title" => "Git Continuous Deployment", "desc" => "Otomatis ter-deploy saat Anda melakukan push ke branch utama."]
+    ["title" => "APP1", "desc" => "Test1"],
+    ["title" => "APP2", "desc" => "Test2"],
+    ["title" => "APP3", "desc" => "Test3"]
 ];
 ?>
 <!DOCTYPE html>
