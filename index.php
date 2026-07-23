@@ -7,9 +7,9 @@ $server_time = date('D, d M Y H:i:s') . ' WIB';
 $php_ver = phpversion();
 
 $features = [
-    ["title" => "APP1", "desc" => "Test1"],
-    ["title" => "APP2", "desc" => "Test2"],
-    ["title" => "APP3", "desc" => "Test3"]
+    ["title" => "Dashboard", "desc" => "Akses terpusat semua aplikasi"],
+    ["title" => "Account", "desc" => "Management Akun"],
+    ["title" => "Payment", "desc" => "Metode pembayaran yang mudah"]
 ];
 ?>
 <!DOCTYPE html>
@@ -37,7 +37,7 @@ $features = [
 <div class="card">
     <div class="header">
         <h1>🚀 <?= $app_name ?></h1>
-        <span class="badge">Environment: Azure App Service</span>
+        <span class="badge">Azure App Service</span>
     </div>
 
     <div class="info-grid">
@@ -46,7 +46,7 @@ $features = [
         <div style="grid-column: span 2;"><strong>Server Time:</strong> <?= $server_time ?></div>
     </div>
 
-    <h3>Keunggulan Arsitektur Ini:</h3>
+    <h3>Fitur Apps</h3>
     <ul class="feature-list">
         <?php foreach ($features as $f): ?>
             <li class="feature-item">
