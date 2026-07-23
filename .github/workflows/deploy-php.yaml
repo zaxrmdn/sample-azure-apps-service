@@ -33,7 +33,7 @@ jobs:
       - name: Render PHP file into Static HTML
         run: |
           mkdir public
-          php template.php > public/index.html
+          php index.php > index.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
