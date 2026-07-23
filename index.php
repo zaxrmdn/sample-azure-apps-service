@@ -2,7 +2,8 @@
 // Konfigurasi & Variabel Aplikasi Statis
 $app_name = "Azure App Service - PHP Static Lab";
 $version  = "1.0.0";
-$server_time = new DateTimeZone('Asia/Jakarta');
+date_default_timezone_set('Asia/Jakarta');
+$server_time = date('D, d M Y H:i:s') . ' WIB';
 $php_ver = phpversion();
 
 $features = [
