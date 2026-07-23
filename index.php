@@ -1,81 +1,62 @@
 <?php
-$file = 'data.json';
+// Konfigurasi & Variabel Aplikasi Statis
+$app_name = "Azure App Service - PHP Static Lab";
+$version  = "1.0.0";
+$server_time = date('D, d M Y H:i:s T');
+$php_ver = phpversion();
 
-// Baca data lama jika ada
-$messages = [];
-if (file_exists($file)) {
-    $messages = json_decode(file_get_contents($file), true) ?? [];
-}
-
-// Tangani Form Submit
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = htmlspecialchars($_POST['name'] ?? '');
-    $message = htmlspecialchars($_POST['message'] ?? '');
-
-    if (!empty($name) && !empty($message)) {
-        array_unshift($messages, [
-            'name' => $name,
-            'message' => $message,
-            'time' => date('H:i, d M Y')
-        ]);
-        file_put_contents($file, json_encode($messages));
-        header('Location: index.php');
-        exit;
-    }
-}
+$features = [
+    ["title" => "Direct PHP Execution", "desc" => "Berjalan langsung di atas Linux Container Azure App Service."],
+    ["title" => "Zero Database Needed", "desc" => "Cocok untuk landing page, dokumentasi, atau portal statis cepat."],
+    ["title" => "Git Continuous Deployment", "desc" => "Otomatis ter-deploy saat Anda melakukan push ke branch utama."]
+];
 ?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Azure App Service - Interactive Lab</title>
+    <title><?= $app_name ?></title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f7f6; margin: 0; padding: 20px; color: #333; }
-        .container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h1 { color: #0078d4; font-size: 24px; text-align: center; }
-        .status { background: #e1f5fe; border-left: 4px solid #0288d1; padding: 10px 15px; margin-bottom: 20px; font-size: 14px; }
-        form { display: flex; flex-direction: column; gap: 15px; }
-        input, textarea { padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; width: 100%; box-sizing: border-box; }
-        button { background: #0078d4; color: white; border: none; padding: 12px; border-radius: 6px; font-size: 16px; cursor: pointer; transition: 0.3s; }
-        button:hover { background: #005a9e; }
-        .messages { margin-top: 30px; }
-        .msg-card { background: #fafafa; border: 1px solid #eee; padding: 15px; border-radius: 6px; margin-bottom: 10px; }
-        .msg-header { font-weight: bold; color: #0078d4; display: flex; justify-content: space-between; margin-bottom: 5px; }
-        .msg-time { font-size: 12px; color: #888; font-weight: normal; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background-color: #f4f6f9; color: #333; margin: 0; padding: 40px 20px; }
+        .card { max-width: 650px; margin: 0 auto; background: #fff; border-radius: 10px; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .header { text-align: center; border-bottom: 2px solid #eaeaea; padding-bottom: 20px; margin-bottom: 25px; }
+        .badge { background-color: #0078d4; color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; display: inline-block; margin-top: 10px; }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: #f8f9fa; padding: 15px; border-radius: 6px; font-size: 0.9rem; margin-bottom: 25px; }
+        .feature-list { list-style: none; padding: 0; }
+        .feature-item { padding: 12px 0; border-bottom: 1px solid #eee; }
+        .feature-item:last-child { border-bottom: none; }
+        .feature-title { font-weight: bold; color: #0078d4; }
+        .footer { text-align: center; margin-top: 25px; font-size: 0.8rem; color: #777; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>🚀 Azure App Service Demo (PHP)</h1>
-    
-    <div class="status">
-        <strong>Status:</strong> Terhubung ke Azure App Service via Deployment Center (Git)!
+<div class="card">
+    <div class="header">
+        <h1>🚀 <?= $app_name ?></h1>
+        <span class="badge">Environemnt: Azure App Service</span>
     </div>
 
-    <form method="POST" action="">
-        <input type="text" name="name" placeholder="Nama Anda" required>
-        <textarea name="message" rows="3" placeholder="Tulis pesan interaktif Anda di sini..." required></textarea>
-        <button type="submit">Kirim Pesan</button>
-    </form>
+    <div class="info-grid">
+        <div><strong>PHP Version:</strong> <?= $php_ver ?></div>
+        <div><strong>App Version:</strong> <?= $version ?></div>
+        <div style="grid-column: span 2;"><strong>Server Time:</strong> <?= $server_time ?></div>
+    </div>
 
-    <div class="messages">
-        <h3>Pesan Terkirim:</h3>
-        <?php if (empty($messages)): ?>
-            <p style="color: #888;">Belum ada pesan. Jadi yang pertama mengirim!</p>
-        <?php else: ?>
-            <?php foreach ($messages as $msg): ?>
-                <div class="msg-card">
-                    <div class="msg-header">
-                        <span><?= $msg['name'] ?></span>
-                        <span class="msg-time"><?= $msg['time'] ?></span>
-                    </div>
-                    <div><?= $msg['message'] ?></div>
-                </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
+    <h3>Keunggulan Arsitektur Ini:</h3>
+    <ul class="feature-list">
+        <?php foreach ($features as $f): ?>
+            <li class="feature-item">
+                <div class="feature-title"><?= $f['title'] ?></div>
+                <div><?= $f['desc'] ?></div>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+
+    <div class="footer">
+        Dideploy via Azure Deployment Center &bull; Static PHP Engine
     </div>
 </div>
 
